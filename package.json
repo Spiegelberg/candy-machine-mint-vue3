@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "yarn auth && yarn build && GAE_VERSION=$(echo ${npm_package_version} | sed 's/\\./-/g') && gcloud app deploy app.yaml --project spacehero-io --version production-$GAE_VERSION -q",
+    "auth": "gcloud auth login jesperspiegelberg@gmail.com && gcloud config set project spacehero-io"
   },
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.0.0-rc",
@@ -17,6 +19,7 @@
     "@solana/wallet-adapter-wallets": "^0.11.3",
     "@solana/web3.js": "^1.31.0",
     "core-js": "^3.6.5",
+    "discord.js": "^13.6.0",
     "vue": "^3.2.24",
     "vue-router": "^4.0.0-0"
   },

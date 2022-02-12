@@ -8,7 +8,7 @@ import {
 } from "@solana/spl-token";
 
 export const CANDY_MACHINE_PROGRAM = new anchor.web3.PublicKey(
-  "cndyAnrLdpjq1Ssp1z8xxDsB8dxe7u4HL5Nxi2K5WXZ"
+  "cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ"
 );
 
 const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new anchor.web3.PublicKey(
@@ -26,6 +26,7 @@ export interface CandyMachine {
 }
 
 interface CandyMachineState {
+  price: number;
   candyMachine: CandyMachine;
   itemsAvailable: number;
   itemsRedeemed: number;
@@ -178,6 +179,7 @@ export const getCandyMachineState = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const state: any = await program.account.candyMachine.fetch(candyMachineId);
 
+  const price = state.data.price.toNumber();
   const itemsAvailable = state.data.itemsAvailable.toNumber();
   const itemsRedeemed = state.itemsRedeemed.toNumber();
   const itemsRemaining = itemsAvailable - itemsRedeemed;
@@ -186,6 +188,7 @@ export const getCandyMachineState = async (
   goLiveDate = new Date(goLiveDate * 1000);
 
   console.log({
+    price,
     itemsAvailable,
     itemsRedeemed,
     itemsRemaining,
@@ -198,6 +201,7 @@ export const getCandyMachineState = async (
     itemsRedeemed,
     itemsRemaining,
     goLiveDate,
+    price
   };
 }
 
