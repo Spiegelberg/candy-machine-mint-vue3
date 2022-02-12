@@ -1,0 +1,13 @@
+steps:
+  - name: node:10.15.1
+    entrypoint: yarn
+    args: ["install"]
+  - name: node:10.15.1
+    entrypoint: yarn
+    args: ["run", "build"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy"]
+timeout: "1600s"
+
+git remote add google \
+https://source.developers.google.com/p/spacehero-io/r/frontend
